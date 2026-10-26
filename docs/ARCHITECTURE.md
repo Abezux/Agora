@@ -82,3 +82,4 @@ Tokens live in `tailwind.config.ts` under `agora.*` (bg, card, border, ink, terr
 - 2026-10-07: A4 domain split — modularized `src/services/` into domain-specific services with a unified `api` facade export.
 - 2026-10-07: A5 types & modals — replaced all 14 `any` types with strict interfaces/unions, and replaced all 18 `alert()` / `confirm()` calls with inline error banners and a reusable `ConfirmModal`.
 - 2026-10-07: A6 navbar refactor — removed `seedDemo()` and sample catalog buttons from `Navbar.tsx`; preserved `seedDemo` for onboarding and upcoming landing page demo flow.
+- 2026-10-26: Roadmap v1 rewrite — replaced old Phase A/B/C roadmap with a complete phased plan (P0–P4) covering ship pipeline, landing page + design tokens, offline-first data layer, onboarding/auth, insights, and launch gate. Added vision, owner decisions, sequencing rationale, old-to-new task mapping, risks, and post-v1 backlog. No code changes.
