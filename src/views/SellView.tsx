@@ -6,17 +6,17 @@ import CartDrawer from '@/components/pos/CartDrawer';
 import CheckoutModal from '@/components/pos/CheckoutModal';
 import ProductAvatar from '@/components/common/ProductAvatar';
 import { formatCurrency } from '@/utils/currency';
-import { 
-  Search, 
-  AlertTriangle, 
-  Plus, 
-  ShoppingCart, 
-  RefreshCw, 
-  ShoppingBag, 
-  ChevronUp, 
-  ChevronDown, 
+import {
+  Search,
+  AlertTriangle,
+  Plus,
+  ShoppingCart,
+  RefreshCw,
+  ShoppingBag,
+  ChevronUp,
+  ChevronDown,
   X,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react';
 
 export default function SellView() {
@@ -52,7 +52,7 @@ export default function SellView() {
       const [prods, stgs, salesHistory] = await Promise.all([
         api.getProducts(),
         api.getSettings(),
-        api.getSales()
+        api.getSales(),
       ]);
       setProducts(prods);
       setSettings(stgs);
@@ -87,8 +87,8 @@ export default function SellView() {
         selectedCategory === 'ALL'
           ? true
           : selectedCategory === 'FAVORITES'
-          ? product.is_favorite === true
-          : product.category === selectedCategory;
+            ? product.is_favorite === true
+            : product.category === selectedCategory;
       const matchesSearch =
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase());
@@ -99,10 +99,7 @@ export default function SellView() {
     });
   }, [products, selectedCategory, searchQuery, showLowStockOnly]);
 
-  const totalCartItems = useMemo(
-    () => cart.reduce((sum, item) => sum + item.quantity, 0),
-    [cart]
-  );
+  const totalCartItems = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
 
   const totalCartAmountInCents = useMemo(
     () => cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
@@ -118,9 +115,7 @@ export default function SellView() {
           return prevCart;
         }
         return prevCart.map((item) =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+          item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
       return [...prevCart, { product, quantity: 1 }];
@@ -165,13 +160,7 @@ export default function SellView() {
       quantity: item.quantity,
     }));
 
-    const sale = await api.createSale(
-      saleItems,
-      payments,
-      discountAmount,
-      discountReason,
-      notes
-    );
+    const sale = await api.createSale(saleItems, payments, discountAmount, discountReason, notes);
     setCart([]);
     setIsCartSheetOpen(false);
     await loadData();
@@ -229,7 +218,10 @@ export default function SellView() {
               <AlertTriangle className="w-4 h-4 text-agora-brick shrink-0" />
               <span>{warningMessage}</span>
             </div>
-            <button onClick={() => setWarningMessage(null)} className="text-agora-brick hover:text-agora-ink font-bold ml-2">
+            <button
+              onClick={() => setWarningMessage(null)}
+              className="text-agora-brick hover:text-agora-ink font-bold ml-2"
+            >
               ✕
             </button>
           </div>
@@ -297,13 +289,15 @@ export default function SellView() {
         {/* Pull to refresh visual indicator */}
         {(pullDistance > 0 || isPullRefreshing) && (
           <div className="flex items-center justify-center gap-2 text-xs font-bold text-agora-terracotta py-1 shrink-0 animate-in fade-in duration-150">
-            <RefreshCw className={`w-4 h-4 ${isPullRefreshing || pullDistance >= 60 ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`w-4 h-4 ${isPullRefreshing || pullDistance >= 60 ? 'animate-spin' : ''}`}
+            />
             <span>
               {isPullRefreshing
                 ? 'Refreshing catalog...'
                 : pullDistance >= 60
-                ? 'Release to refresh'
-                : 'Pull down to refresh'}
+                  ? 'Release to refresh'
+                  : 'Pull down to refresh'}
             </span>
           </div>
         )}
@@ -319,7 +313,10 @@ export default function SellView() {
           {isLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 animate-pulse">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="h-32 sm:h-36 bg-agora-card rounded-xl sm:rounded-2xl border border-agora-border"></div>
+                <div
+                  key={i}
+                  className="h-32 sm:h-36 bg-agora-card rounded-xl sm:rounded-2xl border border-agora-border"
+                ></div>
               ))}
             </div>
           ) : filteredProducts.length === 0 ? (
@@ -327,7 +324,9 @@ export default function SellView() {
               <div className="w-12 h-12 rounded-full bg-agora-bg border border-agora-border flex items-center justify-center mx-auto text-agora-brass">
                 <ShoppingCart className="w-6 h-6" />
               </div>
-              <h3 className="font-serif font-bold text-agora-ink text-base sm:text-lg">No products found</h3>
+              <h3 className="font-serif font-bold text-agora-ink text-base sm:text-lg">
+                No products found
+              </h3>
               <p className="text-xs text-agora-ink-muted max-w-xs mx-auto">
                 {products.length === 0
                   ? 'Your catalog is empty. Add products to start selling.'
@@ -389,9 +388,13 @@ export default function SellView() {
             </div>
             <div>
               <div className="font-serif font-bold text-sm leading-tight flex items-center gap-2">
-                <span>{totalCartItems} item{totalCartItems > 1 ? 's' : ''}</span>
+                <span>
+                  {totalCartItems} item{totalCartItems > 1 ? 's' : ''}
+                </span>
                 <span>•</span>
-                <span className="text-base">{formatCurrency(totalCartAmountInCents, settings.currency_symbol)}</span>
+                <span className="text-base">
+                  {formatCurrency(totalCartAmountInCents, settings.currency_symbol)}
+                </span>
               </div>
               <span className="text-[11px] opacity-90 block">Tap to view cart & checkout</span>
             </div>
@@ -418,7 +421,9 @@ export default function SellView() {
             <div className="pt-3 pb-1 flex flex-col items-center shrink-0 border-b border-agora-border/60">
               <div className="w-12 h-1.5 bg-agora-border rounded-full mb-2" />
               <div className="w-full px-4 flex items-center justify-between">
-                <span className="text-xs font-bold text-agora-ink-muted uppercase tracking-wider">Cart Register</span>
+                <span className="text-xs font-bold text-agora-ink-muted uppercase tracking-wider">
+                  Cart Register
+                </span>
                 <button
                   onClick={() => setIsCartSheetOpen(false)}
                   className="p-1 rounded-lg text-agora-ink-muted hover:text-agora-ink"
@@ -456,4 +461,3 @@ export default function SellView() {
     </div>
   );
 }
-

@@ -64,16 +64,22 @@ export default function VoidSaleModal({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="bg-agora-brick/10 border border-agora-brick/20 rounded-2xl p-4 text-xs text-agora-ink/80 space-y-1">
-            <p className="font-bold text-sm text-agora-brick">Are you sure you want to void this sale?</p>
+            <p className="font-bold text-sm text-agora-brick">
+              Are you sure you want to void this sale?
+            </p>
             <p className="text-agora-ink/70">
-              This action will mark the receipt as voided (<span className="font-serif font-bold text-agora-ink">{formatCurrency(sale.total_amount, currencySymbol)}</span>) and <strong className="text-agora-sage">automatically restore inventory stock</strong> for all {sale.items_count} item(s).
+              This action will mark the receipt as voided (
+              <span className="font-serif font-bold text-agora-ink">
+                {formatCurrency(sale.total_amount, currencySymbol)}
+              </span>
+              ) and{' '}
+              <strong className="text-agora-sage">automatically restore inventory stock</strong> for
+              all {sale.items_count} item(s).
             </p>
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-agora-ink/70">
-              Reason for Voiding
-            </label>
+            <label className="text-xs font-semibold text-agora-ink/70">Reason for Voiding</label>
             <textarea
               required
               rows={3}

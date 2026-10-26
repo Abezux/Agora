@@ -3,15 +3,41 @@ import { useAuth } from '@/context/AuthContext';
 import { BusinessType } from '@/types';
 import { CURRENCY_PRESETS } from '@/utils/currency';
 import { api } from '@/services/api';
-import { Sparkles, ArrowRight, CheckCircle2, Package, Store, ShoppingBag, Pill, UtensilsCrossed, Scissors } from 'lucide-react';
+import {
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Package,
+  Store,
+  ShoppingBag,
+  Pill,
+  UtensilsCrossed,
+  Scissors,
+} from 'lucide-react';
 
-const BUSINESS_TYPES: { id: BusinessType; name: string; icon: React.ElementType; desc: string }[] = [
-  { id: 'GENERAL_RETAIL', name: 'General Retail', icon: Store, desc: 'Standard shop catalog' },
-  { id: 'MINI_SHOP', name: 'Mini-Shop / Kiosk', icon: ShoppingBag, desc: 'Snacks, drinks & counter items' },
-  { id: 'PHARMACY', name: 'Pharmacy / Drugstore', icon: Pill, desc: 'Expiry dates, batch numbers & Rx' },
-  { id: 'RESTAURANT', name: 'Restaurant / Food Stall', icon: UtensilsCrossed, desc: 'Prep times & ingredients' },
-  { id: 'SALON', name: 'Salon & Services', icon: Scissors, desc: 'Services & beauty products' },
-];
+const BUSINESS_TYPES: { id: BusinessType; name: string; icon: React.ElementType; desc: string }[] =
+  [
+    { id: 'GENERAL_RETAIL', name: 'General Retail', icon: Store, desc: 'Standard shop catalog' },
+    {
+      id: 'MINI_SHOP',
+      name: 'Mini-Shop / Kiosk',
+      icon: ShoppingBag,
+      desc: 'Snacks, drinks & counter items',
+    },
+    {
+      id: 'PHARMACY',
+      name: 'Pharmacy / Drugstore',
+      icon: Pill,
+      desc: 'Expiry dates, batch numbers & Rx',
+    },
+    {
+      id: 'RESTAURANT',
+      name: 'Restaurant / Food Stall',
+      icon: UtensilsCrossed,
+      desc: 'Prep times & ingredients',
+    },
+    { id: 'SALON', name: 'Salon & Services', icon: Scissors, desc: 'Services & beauty products' },
+  ];
 
 export default function OnboardingView() {
   const { createStore } = useAuth();
@@ -79,7 +105,9 @@ export default function OnboardingView() {
                 {step === 1 ? 'Step 1: Store Setup' : 'Step 2: Product Catalog'}
               </h2>
               <span className="text-xs text-agora-ink-muted font-medium">
-                {step === 1 ? 'Configure store name, business type & currency' : 'Choose how to start your product catalog'}
+                {step === 1
+                  ? 'Configure store name, business type & currency'
+                  : 'Choose how to start your product catalog'}
               </span>
             </div>
           </div>
@@ -132,7 +160,9 @@ export default function OnboardingView() {
                       <Icon className="w-5 h-5 shrink-0 text-agora-terracotta mt-0.5" />
                       <div>
                         <span className="font-bold text-xs block text-agora-ink">{bt.name}</span>
-                        <span className="text-[10px] text-agora-ink-muted leading-tight block mt-0.5">{bt.desc}</span>
+                        <span className="text-[10px] text-agora-ink-muted leading-tight block mt-0.5">
+                          {bt.desc}
+                        </span>
                       </div>
                     </button>
                   );
@@ -193,7 +223,9 @@ export default function OnboardingView() {
               >
                 <Sparkles className="w-6 h-6 text-agora-terracotta" />
                 <div>
-                  <h4 className="font-serif font-bold text-agora-ink text-sm">Load Sample Products</h4>
+                  <h4 className="font-serif font-bold text-agora-ink text-sm">
+                    Load Sample Products
+                  </h4>
                   <p className="text-xs text-agora-ink-muted mt-1">
                     Pre-loads sample items tailored to your business type.
                   </p>

@@ -13,7 +13,11 @@ export default function ProductAvatar({
   className = '',
   size = 'md',
 }: ProductAvatarProps) {
-  const isUrl = imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://') || imageUrl.startsWith('data:'));
+  const isUrl =
+    imageUrl &&
+    (imageUrl.startsWith('http://') ||
+      imageUrl.startsWith('https://') ||
+      imageUrl.startsWith('data:'));
   const firstLetter = name ? name.trim().charAt(0).toUpperCase() : 'P';
 
   const sizeClasses = {

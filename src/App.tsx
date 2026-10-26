@@ -25,7 +25,9 @@ function AppContent() {
         setAuthViewMode('LOGIN');
       } else if (baseTab === 'signup') {
         setAuthViewMode('SIGNUP');
-      } else if (['sell', 'inventory', 'sales', 'audit', 'analytics', 'landing'].includes(baseTab)) {
+      } else if (
+        ['sell', 'inventory', 'sales', 'audit', 'analytics', 'landing'].includes(baseTab)
+      ) {
         setActiveTab(baseTab);
         if (baseTab !== 'landing') setAuthViewMode(null);
       }
@@ -85,11 +87,7 @@ function AppContent() {
       <div className="flex-1 flex min-h-0 w-full overflow-hidden">
         <Sidebar activeTab={activeTab} onNavigate={navigateTo} />
         <main className="flex-1 min-w-0 p-3 sm:p-4 md:p-6 overflow-y-auto pb-20 lg:pb-6 h-full">
-          {activeTab === 'landing' && (
-            <LandingView
-              onOpenAuth={() => navigateTo('sell')}
-            />
-          )}
+          {activeTab === 'landing' && <LandingView onOpenAuth={() => navigateTo('sell')} />}
           {activeTab === 'sell' && <SellPage />}
           {activeTab === 'inventory' && <InventoryPage />}
           {activeTab === 'sales' && <SalesHistoryPage />}

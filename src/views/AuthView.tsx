@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { KeyRound, Mail, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle, ArrowLeft } from 'lucide-react';
+import {
+  KeyRound,
+  Mail,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+} from 'lucide-react';
 import AgoraLogo from '@/components/navigation/AgoraLogo';
 
 interface AuthViewProps {
@@ -199,10 +207,10 @@ export default function AuthView({ initialMode = 'LOGIN', onBackToLanding }: Aut
               {isSubmitting
                 ? 'Processing...'
                 : mode === 'LOGIN'
-                ? 'Sign In'
-                : mode === 'SIGNUP'
-                ? 'Create Account'
-                : 'Send Reset Link'}
+                  ? 'Sign In'
+                  : mode === 'SIGNUP'
+                    ? 'Create Account'
+                    : 'Send Reset Link'}
             </span>
             <ArrowRight className="w-4 h-4" />
           </button>

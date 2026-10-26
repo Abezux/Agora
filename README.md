@@ -82,6 +82,12 @@ This provisions:
 | `npm run dev` | Launches Vite dev server on port `3030` |
 | `npm run build` | Compiles TypeScript (`tsc`) and builds production assets with Vite |
 | `npm run preview` | Previews the production build locally |
+| `npm run lint` | Runs ESLint (0 errors; warnings are a known baseline) |
+| `npm run lint:fix` | Runs ESLint and applies safe fixes |
+| `npm run format` | Formats the repo with Prettier |
+| `npm run format:check` | Fails if any file is not Prettier-formatted |
+| `npm test` | Runs the Vitest unit tests once |
+| `npm run test:watch` | Runs Vitest in watch mode |
 
 ---
 

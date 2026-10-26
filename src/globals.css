@@ -3,19 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --agora-bg: #FAF6EE;
-  --agora-card: #FFFDF8;
-  --agora-border: #E5DCC8;
-  --agora-ink: #211D1A;
-  --agora-ink-muted: #6E655F;
-  --agora-terracotta: #C1502E;
-  --agora-brass: #8B7355;
-  --agora-sage: #5C7A52;
-  --agora-brick: #9B4038;
+  --agora-bg: #faf6ee;
+  --agora-card: #fffdf8;
+  --agora-border: #e5dcc8;
+  --agora-ink: #211d1a;
+  --agora-ink-muted: #6e655f;
+  --agora-terracotta: #c1502e;
+  --agora-brass: #8b7355;
+  --agora-sage: #5c7a52;
+  --agora-brick: #9b4038;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   background-color: var(--agora-bg);
   color: var(--agora-ink);
   min-height: 100vh;
@@ -29,20 +33,20 @@ body {
 
 /* Ledger paper card container */
 .ledger-card {
-  background-color: #FFFDF8;
-  border: 1px solid #E5DCC8;
+  background-color: #fffdf8;
+  border: 1px solid #e5dcc8;
   border-radius: 1rem;
   box-shadow: 0 2px 4px rgba(33, 29, 26, 0.03);
 }
 
 /* Ledger row horizontal rule style */
 .ledger-row {
-  border-bottom: 1px solid #E5DCC8;
+  border-bottom: 1px solid #e5dcc8;
   transition: background-color 0.15s ease;
 }
 
 .ledger-row:hover {
-  background-color: #F4EFE6;
+  background-color: #f4efe6;
 }
 
 /* Custom Scrollbar */
@@ -52,14 +56,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF6EE;
+  background: #faf6ee;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D9CFBF;
+  background: #d9cfbf;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B7355;
+  background: #8b7355;
 }

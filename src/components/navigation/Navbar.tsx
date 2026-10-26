@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ShoppingCart, 
-  Package, 
-  History, 
-  FileText, 
-  BarChart3, 
+import {
+  ShoppingCart,
+  Package,
+  History,
+  FileText,
+  BarChart3,
   Wifi,
   Settings,
   LogOut,
@@ -15,7 +15,7 @@ import {
   UtensilsCrossed,
   Scissors,
   MoreVertical,
-  X
+  X,
 } from 'lucide-react';
 import { api } from '@/services/api';
 import { StoreSettings } from '@/types';
@@ -64,7 +64,9 @@ export function Sidebar({ activeTab, onNavigate }: NavbarProps) {
                   : 'text-agora-ink-muted hover:text-agora-ink hover:bg-agora-bg'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-agora-card' : 'text-agora-ink-muted'}`} />
+              <Icon
+                className={`w-4 h-4 ${isActive ? 'text-agora-card' : 'text-agora-ink-muted'}`}
+              />
               <span>{link.label}</span>
             </button>
           );
@@ -95,7 +97,10 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   const loadSettings = () => {
-    api.getSettings().then(setSettings).catch(() => {});
+    api
+      .getSettings()
+      .then(setSettings)
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -121,7 +126,9 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
     window.location.reload();
   };
 
-  const badge = BUSINESS_TYPE_BADGES[settings.business_type || 'GENERAL_RETAIL'] || BUSINESS_TYPE_BADGES.GENERAL_RETAIL;
+  const badge =
+    BUSINESS_TYPE_BADGES[settings.business_type || 'GENERAL_RETAIL'] ||
+    BUSINESS_TYPE_BADGES.GENERAL_RETAIL;
   const BadgeIcon = badge.icon;
 
   return (
@@ -131,14 +138,17 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
         <div className="w-full mx-auto px-3 sm:px-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <AgoraLogo size="md" />
-            
+
             <div className="hidden sm:block h-7 w-[1px] bg-agora-border mx-0.5" />
 
             <div className="min-w-0">
               <h1 className="font-serif font-bold text-sm sm:text-base tracking-tight leading-tight flex items-center gap-1.5 text-agora-ink">
-                <span className="truncate max-w-[130px] sm:max-w-[200px] lg:max-w-none">{settings.store_name}</span>
+                <span className="truncate max-w-[130px] sm:max-w-[200px] lg:max-w-none">
+                  {settings.store_name}
+                </span>
                 <span className="text-[11px] sm:text-xs font-sans font-semibold px-2 py-0.5 rounded-full bg-agora-brass/10 text-agora-brass border border-agora-brass/30 flex items-center gap-1 shrink-0">
-                  <BadgeIcon className="w-3 h-3 text-agora-brass" /> <span className="hidden sm:inline">{badge.label}</span>
+                  <BadgeIcon className="w-3 h-3 text-agora-brass" />{' '}
+                  <span className="hidden sm:inline">{badge.label}</span>
                 </span>
               </h1>
 
@@ -158,7 +168,12 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
                   </>
                 )}
                 <span>•</span>
-                <span>Currency: <strong className="font-serif text-agora-ink">{settings.currency_symbol} ({settings.currency_code})</strong></span>
+                <span>
+                  Currency:{' '}
+                  <strong className="font-serif text-agora-ink">
+                    {settings.currency_symbol} ({settings.currency_code})
+                  </strong>
+                </span>
               </div>
             </div>
           </div>
@@ -189,12 +204,16 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
               className="p-2 rounded-xl bg-agora-bg border border-agora-border text-agora-ink hover:bg-agora-border transition-all active:scale-95"
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5 text-agora-terracotta" /> : <MoreVertical className="w-5 h-5 text-agora-ink" />}
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5 text-agora-terracotta" />
+              ) : (
+                <MoreVertical className="w-5 h-5 text-agora-ink" />
+              )}
             </button>
 
             {/* Mobile Dropdown Card */}
             {isMobileMenuOpen && (
-              <div 
+              <div
                 className="absolute right-0 top-12 w-64 bg-agora-card border border-agora-border rounded-2xl shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 space-y-2 text-xs"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -203,7 +222,9 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
                     <span className="flex items-center gap-1">
                       <Wifi className="w-3 h-3 text-agora-sage" /> Cloud Active
                     </span>
-                    <span className="font-serif font-bold text-agora-ink">{settings.currency_symbol} ({settings.currency_code})</span>
+                    <span className="font-serif font-bold text-agora-ink">
+                      {settings.currency_symbol} ({settings.currency_code})
+                    </span>
                   </div>
                   {user?.email && (
                     <div className="text-[11px] text-agora-ink-muted truncate flex items-center gap-1">
@@ -252,7 +273,9 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
                     : 'text-agora-ink-muted hover:text-agora-ink active:bg-agora-bg'
                 }`}
               >
-                <Icon className={`w-5 h-5 mb-1 ${isActive ? 'text-agora-terracotta' : 'text-agora-ink-muted'}`} />
+                <Icon
+                  className={`w-5 h-5 mb-1 ${isActive ? 'text-agora-terracotta' : 'text-agora-ink-muted'}`}
+                />
                 <span className="text-[10px] leading-tight truncate w-full">{link.label}</span>
               </button>
             );
@@ -270,4 +293,3 @@ export default function Navbar({ activeTab, onNavigate }: NavbarProps) {
     </>
   );
 }
-

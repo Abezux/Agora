@@ -1,12 +1,6 @@
 import { BusinessType } from './index';
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
   public: {
@@ -129,7 +123,9 @@ export interface Database {
           note: string | null;
           timestamp: string;
         };
-        Insert: Omit<Database['public']['Tables']['stock_movements']['Row'], 'id'> & { id?: string };
+        Insert: Omit<Database['public']['Tables']['stock_movements']['Row'], 'id'> & {
+          id?: string;
+        };
         Update: Partial<Database['public']['Tables']['stock_movements']['Insert']>;
       };
     };

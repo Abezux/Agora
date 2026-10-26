@@ -49,7 +49,7 @@ function CartItemRow({ item, currencySymbol, onUpdateQuantity, onRemoveItem }: C
   return (
     <div className="relative overflow-hidden py-1">
       {/* Background Delete Trigger reveal */}
-      <div 
+      <div
         onClick={() => onRemoveItem(item.product.id)}
         className="absolute inset-y-0 right-0 w-20 bg-agora-brick flex items-center justify-center text-agora-card font-bold rounded-lg cursor-pointer"
       >
@@ -67,9 +67,7 @@ function CartItemRow({ item, currencySymbol, onUpdateQuantity, onRemoveItem }: C
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <ProductAvatar name={item.product.name} imageUrl={item.product.image_url} size="sm" />
-            <h4 className="font-bold text-agora-ink text-xs truncate">
-              {item.product.name}
-            </h4>
+            <h4 className="font-bold text-agora-ink text-xs truncate">{item.product.name}</h4>
           </div>
           <div className="flex items-center gap-2 mt-0.5">
             <span className="text-[11px] text-agora-ink-muted">
@@ -139,8 +137,12 @@ export default function CartDrawer({
             <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <div>
-            <h2 className="font-serif font-bold text-agora-ink text-sm sm:text-base leading-tight">Current Cart</h2>
-            <span className="text-[11px] sm:text-xs text-agora-ink-muted">{totalItemsCount} item(s)</span>
+            <h2 className="font-serif font-bold text-agora-ink text-sm sm:text-base leading-tight">
+              Current Cart
+            </h2>
+            <span className="text-[11px] sm:text-xs text-agora-ink-muted">
+              {totalItemsCount} item(s)
+            </span>
           </div>
         </div>
 
@@ -206,4 +208,3 @@ export default function CartDrawer({
     </div>
   );
 }
-

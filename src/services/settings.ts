@@ -6,11 +6,7 @@ export async function getSettings(): Promise<StoreSettings> {
   if (isSupabaseConfigured()) {
     const storeId = await getActiveStoreId();
     if (storeId) {
-      const { data, error } = await supabase
-        .from('stores')
-        .select('*')
-        .eq('id', storeId)
-        .single();
+      const { data, error } = await supabase.from('stores').select('*').eq('id', storeId).single();
 
       if (error) {
         throw new Error(`Failed to fetch store settings: ${error.message}`);

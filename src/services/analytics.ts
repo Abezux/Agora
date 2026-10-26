@@ -1,7 +1,17 @@
-import { Product, Sale, MetricTrend, HourlySalesPoint, RevenueTrendPoint, StockHealthItem } from '@/types';
+import {
+  Product,
+  Sale,
+  MetricTrend,
+  HourlySalesPoint,
+  RevenueTrendPoint,
+  StockHealthItem,
+} from '@/types';
 import { getSaleNetRevenue } from '@/utils/revenue';
 
-export function getMetricTrends(sales: Sale[], daysPeriod: number = 1): {
+export function getMetricTrends(
+  sales: Sale[],
+  daysPeriod: number = 1
+): {
   revenueTrend: MetricTrend;
   salesCountTrend: MetricTrend;
   unitsSoldTrend: MetricTrend;
@@ -10,8 +20,12 @@ export function getMetricTrends(sales: Sale[], daysPeriod: number = 1): {
   const currentStart = new Date(now.getTime() - daysPeriod * 86400000).getTime();
   const previousStart = new Date(now.getTime() - 2 * daysPeriod * 86400000).getTime();
 
-  let curRev = 0, curSales = 0, curUnits = 0;
-  let prevRev = 0, prevSales = 0, prevUnits = 0;
+  let curRev = 0,
+    curSales = 0,
+    curUnits = 0;
+  let prevRev = 0,
+    prevSales = 0,
+    prevUnits = 0;
 
   sales.forEach((s) => {
     if (s.status === 'VOIDED') return;
@@ -121,7 +135,10 @@ export function getHourlySalesData(sales: Sale[], daysRange: number = 7): Hourly
   });
 }
 
-export function getStockHealthData(products: Product[], expiryAlertDays: number = 30): StockHealthItem[] {
+export function getStockHealthData(
+  products: Product[],
+  expiryAlertDays: number = 30
+): StockHealthItem[] {
   const now = Date.now();
   const items: StockHealthItem[] = [];
 
@@ -142,9 +159,10 @@ export function getStockHealthData(products: Product[], expiryAlertDays: number 
     }
 
     if (isLowStock || isExpiringSoon) {
-      const ratio = p.low_stock_threshold > 0 
-        ? Math.min(1, Math.max(0, p.stock_quantity / (p.low_stock_threshold * 2)))
-        : 0;
+      const ratio =
+        p.low_stock_threshold > 0
+          ? Math.min(1, Math.max(0, p.stock_quantity / (p.low_stock_threshold * 2)))
+          : 0;
 
       items.push({
         product: p,
@@ -165,7 +183,10 @@ export function getStockHealthData(products: Product[], expiryAlertDays: number 
   });
 }
 
-export function getSmartRestockSuggestions(products: Product[], sales: Sale[]): Record<string, number> {
+export function getSmartRestockSuggestions(
+  products: Product[],
+  sales: Sale[]
+): Record<string, number> {
   const cutoff = Date.now() - 30 * 86400000;
   const productSalesMap: Record<string, number> = {};
 
@@ -174,7 +195,8 @@ export function getSmartRestockSuggestions(products: Product[], sales: Sale[]): 
     s.items?.forEach((item) => {
       if (!item.product_id) return;
       const netQty = item.quantity - (item.refunded_quantity || 0);
-      productSalesMap[item.product_id] = (productSalesMap[item.product_id] || 0) + Math.max(0, netQty);
+      productSalesMap[item.product_id] =
+        (productSalesMap[item.product_id] || 0) + Math.max(0, netQty);
     });
   });
 
@@ -185,7 +207,10 @@ export function getSmartRestockSuggestions(products: Product[], sales: Sale[]): 
     const avgDaily = totalSold30Days / 30;
     const weeklyBuffer = Math.ceil(avgDaily * 7);
 
-    const suggested = Math.max(p.low_stock_threshold, weeklyBuffer > 0 ? weeklyBuffer : p.low_stock_threshold);
+    const suggested = Math.max(
+      p.low_stock_threshold,
+      weeklyBuffer > 0 ? weeklyBuffer : p.low_stock_threshold
+    );
     suggestions[p.id] = suggested;
   });
 

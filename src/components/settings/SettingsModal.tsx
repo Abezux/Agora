@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { StoreSettings, BusinessType, AttributeDefinition } from '@/types';
 import { CURRENCY_PRESETS } from '@/utils/currency';
-import { X, Settings, ShieldAlert, Layers, Plus, Trash2, CheckCircle2, Store, ShoppingBag, Pill, UtensilsCrossed, Scissors } from 'lucide-react';
+import {
+  X,
+  Settings,
+  ShieldAlert,
+  Layers,
+  Plus,
+  Trash2,
+  CheckCircle2,
+  Store,
+  ShoppingBag,
+  Pill,
+  UtensilsCrossed,
+  Scissors,
+} from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -10,26 +23,41 @@ interface SettingsModalProps {
   onSave: (settings: StoreSettings) => Promise<void>;
 }
 
-const BUSINESS_TYPES: { id: BusinessType; name: string; icon: React.ElementType; desc: string }[] = [
-  { id: 'GENERAL_RETAIL', name: 'General Retail', icon: Store, desc: 'Standard shop catalog' },
-  { id: 'MINI_SHOP', name: 'Mini-Shop / Kiosk', icon: ShoppingBag, desc: 'Snacks, drinks & counter items' },
-  { id: 'PHARMACY', name: 'Pharmacy / Drugstore', icon: Pill, desc: 'Expiry dates, batch numbers & Rx' },
-  { id: 'RESTAURANT', name: 'Restaurant / Food Stall', icon: UtensilsCrossed, desc: 'Prep times & ingredients' },
-  { id: 'SALON', name: 'Salon & Services', icon: Scissors, desc: 'Services & beauty products' },
-];
+const BUSINESS_TYPES: { id: BusinessType; name: string; icon: React.ElementType; desc: string }[] =
+  [
+    { id: 'GENERAL_RETAIL', name: 'General Retail', icon: Store, desc: 'Standard shop catalog' },
+    {
+      id: 'MINI_SHOP',
+      name: 'Mini-Shop / Kiosk',
+      icon: ShoppingBag,
+      desc: 'Snacks, drinks & counter items',
+    },
+    {
+      id: 'PHARMACY',
+      name: 'Pharmacy / Drugstore',
+      icon: Pill,
+      desc: 'Expiry dates, batch numbers & Rx',
+    },
+    {
+      id: 'RESTAURANT',
+      name: 'Restaurant / Food Stall',
+      icon: UtensilsCrossed,
+      desc: 'Prep times & ingredients',
+    },
+    { id: 'SALON', name: 'Salon & Services', icon: Scissors, desc: 'Services & beauty products' },
+  ];
 
-export default function SettingsModal({
-  isOpen,
-  settings,
-  onClose,
-  onSave,
-}: SettingsModalProps) {
+export default function SettingsModal({ isOpen, settings, onClose, onSave }: SettingsModalProps) {
   const [storeName, setStoreName] = useState(settings.store_name);
   const [currencySymbol, setCurrencySymbol] = useState(settings.currency_symbol);
   const [currencyCode, setCurrencyCode] = useState(settings.currency_code);
-  const [businessType, setBusinessType] = useState<BusinessType>(settings.business_type || 'GENERAL_RETAIL');
+  const [businessType, setBusinessType] = useState<BusinessType>(
+    settings.business_type || 'GENERAL_RETAIL'
+  );
   const [expiryAlertDays, setExpiryAlertDays] = useState<number>(settings.expiry_alert_days || 30);
-  const [customAttributes, setCustomAttributes] = useState<AttributeDefinition[]>(settings.custom_attributes || []);
+  const [customAttributes, setCustomAttributes] = useState<AttributeDefinition[]>(
+    settings.custom_attributes || []
+  );
 
   const [newKey, setNewKey] = useState('');
   const [newLabel, setNewLabel] = useState('');
@@ -52,7 +80,7 @@ export default function SettingsModal({
 
   if (!isOpen) return null;
 
-  const handleCurrencySelect = (preset: typeof CURRENCY_PRESETS[0]) => {
+  const handleCurrencySelect = (preset: (typeof CURRENCY_PRESETS)[0]) => {
     setCurrencySymbol(preset.symbol);
     setCurrencyCode(preset.code);
   };
@@ -150,7 +178,9 @@ export default function SettingsModal({
                     <Icon className="w-5 h-5 shrink-0 text-agora-terracotta mt-0.5" />
                     <div>
                       <span className="font-bold text-xs block text-agora-ink">{bt.name}</span>
-                      <span className="text-[10px] text-agora-ink-muted leading-tight block mt-0.5">{bt.desc}</span>
+                      <span className="text-[10px] text-agora-ink-muted leading-tight block mt-0.5">
+                        {bt.desc}
+                      </span>
                     </div>
                   </button>
                 );
@@ -196,7 +226,8 @@ export default function SettingsModal({
                 className="w-32 bg-agora-card border border-agora-border rounded-xl px-3 py-2 text-sm text-agora-ink font-serif font-bold focus:outline-none focus:border-agora-terracotta"
               />
               <span className="text-xs text-agora-ink-muted font-medium">
-                Warn when products expire in <strong className="text-agora-terracotta">{expiryAlertDays} days</strong>
+                Warn when products expire in{' '}
+                <strong className="text-agora-terracotta">{expiryAlertDays} days</strong>
               </span>
             </div>
           </div>
@@ -235,7 +266,9 @@ export default function SettingsModal({
 
             {/* Add Custom Attribute Row */}
             <div className="bg-agora-bg/60 p-3 rounded-2xl border border-agora-border space-y-2">
-              <span className="text-[11px] text-agora-ink-muted font-bold block">Add Custom Field</span>
+              <span className="text-[11px] text-agora-ink-muted font-bold block">
+                Add Custom Field
+              </span>
               <div className="grid grid-cols-3 gap-2">
                 <input
                   type="text"
@@ -246,7 +279,9 @@ export default function SettingsModal({
                 />
                 <select
                   value={newType}
-                  onChange={(e) => setNewType(e.target.value as 'text' | 'number' | 'date' | 'boolean')}
+                  onChange={(e) =>
+                    setNewType(e.target.value as 'text' | 'number' | 'date' | 'boolean')
+                  }
                   className="bg-agora-card border border-agora-border rounded-xl px-2 py-1.5 text-xs text-agora-ink focus:outline-none"
                 >
                   <option value="text">Text</option>

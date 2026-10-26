@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { Sale, StoreSettings } from '@/types';
 import { formatCurrency } from '@/utils/currency';
 import { formatDate } from '@/utils/formatters';
-import { X, Maximize2, Calendar, Receipt, DollarSign, ShoppingBag, Package, TrendingUp } from 'lucide-react';
+import {
+  X,
+  Maximize2,
+  Calendar,
+  Receipt,
+  DollarSign,
+  ShoppingBag,
+  Package,
+  TrendingUp,
+} from 'lucide-react';
 
 interface DrilldownModalProps {
   isOpen: boolean;
@@ -51,22 +60,26 @@ export default function DrilldownModal({
             <Maximize2 className="w-5 h-5 text-agora-ink-muted" />
             <div>
               <h3 className="font-serif font-bold text-agora-ink text-lg leading-tight">{title}</h3>
-              <span className="text-xs text-agora-ink/60">Detailed metric drill-down inspection</span>
+              <span className="text-xs text-agora-ink/60">
+                Detailed metric drill-down inspection
+              </span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Filter Pills */}
             <div className="flex items-center gap-1 bg-agora-card border border-agora-border p-1 rounded-xl">
-              {[
-                { id: 'TODAY', label: 'Today' },
-                { id: '7D', label: '7 Days' },
-                { id: '30D', label: '30 Days' },
-                { id: 'ALL', label: 'All' },
-              ].map((r) => (
+              {(
+                [
+                  { id: 'TODAY', label: 'Today' },
+                  { id: '7D', label: '7 Days' },
+                  { id: '30D', label: '30 Days' },
+                  { id: 'ALL', label: 'All' },
+                ] as const
+              ).map((r) => (
                 <button
                   key={r.id}
-                  onClick={() => setFilterRange(r.id as any)}
+                  onClick={() => setFilterRange(r.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                     filterRange === r.id
                       ? 'bg-agora-terracotta text-agora-card shadow'
@@ -92,18 +105,28 @@ export default function DrilldownModal({
           {/* Summary Strip */}
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-agora-bg p-3.5 rounded-2xl border border-agora-border">
-              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">Period Revenue</span>
+              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">
+                Period Revenue
+              </span>
               <div className="text-xl font-serif font-bold text-agora-ink mt-1">
                 {formatCurrency(totalRevenue, currencySymbol)}
               </div>
             </div>
             <div className="bg-agora-bg p-3.5 rounded-2xl border border-agora-border">
-              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">Sales Count</span>
-              <div className="text-xl font-serif font-bold text-agora-ink mt-1">{filteredSales.length} checkouts</div>
+              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">
+                Sales Count
+              </span>
+              <div className="text-xl font-serif font-bold text-agora-ink mt-1">
+                {filteredSales.length} checkouts
+              </div>
             </div>
             <div className="bg-agora-bg p-3.5 rounded-2xl border border-agora-border">
-              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">Units Sold</span>
-              <div className="text-xl font-serif font-bold text-agora-ink mt-1">{totalUnits} items</div>
+              <span className="text-[10px] text-agora-ink/60 uppercase font-semibold">
+                Units Sold
+              </span>
+              <div className="text-xl font-serif font-bold text-agora-ink mt-1">
+                {totalUnits} items
+              </div>
             </div>
           </div>
 
@@ -122,7 +145,10 @@ export default function DrilldownModal({
                 </div>
               ) : (
                 filteredSales.map((s) => (
-                  <div key={s.id} className="p-4 flex justify-between items-center text-xs hover:bg-agora-card/60 transition-colors">
+                  <div
+                    key={s.id}
+                    className="p-4 flex justify-between items-center text-xs hover:bg-agora-card/60 transition-colors"
+                  >
                     <div>
                       <span className="font-bold text-agora-ink block text-sm flex items-center gap-1.5">
                         <Receipt className="w-3.5 h-3.5 text-agora-ink-muted" /> {s.sale_number}
