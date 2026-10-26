@@ -20,7 +20,12 @@ interface AuthContextType {
   signUp: (email: string, pass: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error?: string }>;
-  createStore: (name: string, businessType: BusinessType, currencySymbol: string, currencyCode: string) => Promise<{ error?: string }>;
+  createStore: (
+    name: string,
+    businessType: BusinessType,
+    currencySymbol: string,
+    currencyCode: string
+  ) => Promise<{ error?: string }>;
   refreshStore: () => Promise<void>;
 }
 
@@ -94,7 +99,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       });
 
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
@@ -117,7 +124,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Local Mock Auth Loader (Development Mode Only with legacy key migration)
-      const localUserStr = localStorage.getItem(LOCAL_MOCK_USER_KEY) || localStorage.getItem(LEGACY_MOCK_USER_KEY);
+      const localUserStr =
+        localStorage.getItem(LOCAL_MOCK_USER_KEY) || localStorage.getItem(LEGACY_MOCK_USER_KEY);
       if (localUserStr) {
         const mockUser = JSON.parse(localUserStr);
         setUser(mockUser);
@@ -150,7 +158,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       if (import.meta.env.MODE === 'production') {
         setLoading(false);
-        return { error: 'Security Error: Supabase credentials are required in production environment.' };
+        return {
+          error: 'Security Error: Supabase credentials are required in production environment.',
+        };
       }
 
       // Local Mock Sign In

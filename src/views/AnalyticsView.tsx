@@ -20,12 +20,12 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts';
-import { 
-  BarChart3, 
-  DollarSign, 
-  ShoppingBag, 
-  Package, 
-  AlertTriangle, 
+import {
+  BarChart3,
+  DollarSign,
+  ShoppingBag,
+  Package,
+  AlertTriangle,
   Layers,
   ArrowUpRight,
   ArrowDownRight,
@@ -34,7 +34,7 @@ import {
   Lock,
   History,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 
 const CATEGORY_COLORS = ['#C1502E', '#8B7355', '#5C7A52', '#9B4038', '#A0958C', '#D9CFBF'];
@@ -52,7 +52,7 @@ export default function AnalyticsView() {
     expiry_alert_days: 30,
     custom_attributes: [],
   });
-  
+
   const [trendDays, setTrendDays] = useState<number>(7);
   const [isLoading, setIsLoading] = useState(true);
   const [isClosureModalOpen, setIsClosureModalOpen] = useState(false);
@@ -125,10 +125,12 @@ export default function AnalyticsView() {
       });
     });
 
-    return Object.entries(map).map(([name, value]) => ({
-      name,
-      valueCents: value,
-    })).sort((a, b) => b.valueCents - a.valueCents);
+    return Object.entries(map)
+      .map(([name, value]) => ({
+        name,
+        valueCents: value,
+      }))
+      .sort((a, b) => b.valueCents - a.valueCents);
   }, [sales, products]);
 
   const stockHealthItems = useMemo(() => {
@@ -242,7 +244,10 @@ export default function AnalyticsView() {
           >
             <span className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-agora-gold shrink-0 animate-pulse" />
-              <span>{stockHealthItems.length} Stock Alert{stockHealthItems.length > 1 ? 's' : ''} Need Attention</span>
+              <span>
+                {stockHealthItems.length} Stock Alert{stockHealthItems.length > 1 ? 's' : ''} Need
+                Attention
+              </span>
             </span>
             <span className="text-[11px] font-extrabold uppercase tracking-wider underline flex items-center gap-1">
               View Items &rarr;
@@ -256,12 +261,17 @@ export default function AnalyticsView() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-agora-ink-muted" />
-            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">Revenue Trajectory</h3>
+            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">
+              Revenue Trajectory
+            </h3>
           </div>
 
           <div className="flex items-center gap-3 text-xs font-medium">
             <span className="flex items-center gap-1 text-agora-ink font-bold">
-              <span className={`w-2.5 h-2.5 rounded-full inline-block ${isRevenueIncrease ? 'bg-agora-sage' : 'bg-agora-brick'}`} /> Current
+              <span
+                className={`w-2.5 h-2.5 rounded-full inline-block ${isRevenueIncrease ? 'bg-agora-sage' : 'bg-agora-brick'}`}
+              />{' '}
+              Current
             </span>
             <span className="flex items-center gap-1 text-agora-ink-muted">
               <span className="w-2.5 h-2.5 rounded-full bg-agora-brass inline-block" /> Previous
@@ -274,12 +284,12 @@ export default function AnalyticsView() {
             <AreaChart data={revenueTrendData}>
               <defs>
                 <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={trendColorHex} stopOpacity={0.35}/>
-                  <stop offset="95%" stopColor={trendColorHex} stopOpacity={0.0}/>
+                  <stop offset="5%" stopColor={trendColorHex} stopOpacity={0.35} />
+                  <stop offset="95%" stopColor={trendColorHex} stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="colorPrev" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8B7355" stopOpacity={0.15}/>
-                  <stop offset="95%" stopColor="#8B7355" stopOpacity={0.0}/>
+                  <stop offset="5%" stopColor="#8B7355" stopOpacity={0.15} />
+                  <stop offset="95%" stopColor="#8B7355" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="dateLabel" stroke="#6E655F" fontSize={11} tickLine={false} />
@@ -291,7 +301,12 @@ export default function AnalyticsView() {
               />
               <Tooltip
                 trigger="hover"
-                contentStyle={{ backgroundColor: '#FFFDF8', borderColor: '#E5DCC8', borderRadius: '12px', color: '#211D1A' }}
+                contentStyle={{
+                  backgroundColor: '#FFFDF8',
+                  borderColor: '#E5DCC8',
+                  borderRadius: '12px',
+                  color: '#211D1A',
+                }}
                 formatter={(value: unknown) => [
                   formatCurrency(Number(value), settings.currency_symbol),
                   'Revenue',
@@ -328,7 +343,9 @@ export default function AnalyticsView() {
           <div className="flex items-center justify-between pb-2 border-b border-agora-border">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-agora-ink-muted" />
-              <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">Peak Sales Hours</h3>
+              <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">
+                Peak Sales Hours
+              </h3>
             </div>
             <span className="text-[11px] text-agora-ink-muted">({trendDays}d window)</span>
           </div>
@@ -339,9 +356,16 @@ export default function AnalyticsView() {
                 <XAxis dataKey="hour" stroke="#6E655F" fontSize={10} tickLine={false} />
                 <YAxis stroke="#6E655F" fontSize={10} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#FFFDF8', borderColor: '#E5DCC8', borderRadius: '12px', color: '#211D1A' }}
+                  contentStyle={{
+                    backgroundColor: '#FFFDF8',
+                    borderColor: '#E5DCC8',
+                    borderRadius: '12px',
+                    color: '#211D1A',
+                  }}
                   formatter={(value: unknown, name: unknown) => [
-                    name === 'revenue' ? formatCurrency(Number(value), settings.currency_symbol) : (value as React.ReactNode),
+                    name === 'revenue'
+                      ? formatCurrency(Number(value), settings.currency_symbol)
+                      : (value as React.ReactNode),
                     name === 'revenue' ? 'Revenue' : 'Sales',
                   ]}
                 />
@@ -356,13 +380,17 @@ export default function AnalyticsView() {
           <div className="flex items-center justify-between pb-2 border-b border-agora-border">
             <div className="flex items-center gap-2">
               <Layers className="w-5 h-5 text-agora-ink-muted" />
-              <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">Category Performance</h3>
+              <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">
+                Category Performance
+              </h3>
             </div>
             <span className="text-[11px] text-agora-ink-muted">Net sales breakdown</span>
           </div>
 
           {categoryChartData.length === 0 ? (
-            <div className="p-6 text-center text-xs text-agora-ink-muted">No sales recorded yet.</div>
+            <div className="p-6 text-center text-xs text-agora-ink-muted">
+              No sales recorded yet.
+            </div>
           ) : (
             <div className="space-y-1.5 max-h-60 overflow-y-auto pr-1">
               {categoryChartData.map((cat, idx) => (
@@ -391,7 +419,9 @@ export default function AnalyticsView() {
         <div className="flex items-center justify-between pb-2 border-b border-agora-border">
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-5 h-5 text-agora-gold" />
-            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">Stock Health & Alerts</h3>
+            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">
+              Stock Health & Alerts
+            </h3>
           </div>
           <span className="text-xs text-agora-ink-muted">Reorder list</span>
         </div>
@@ -411,7 +441,11 @@ export default function AnalyticsView() {
                   title={p.name}
                   subtitle={
                     <span>
-                      Stock: <strong>{p.stock_quantity} {p.unit_type || 'pcs'}</strong> • Alert: {p.low_stock_threshold}
+                      Stock:{' '}
+                      <strong>
+                        {p.stock_quantity} {p.unit_type || 'pcs'}
+                      </strong>{' '}
+                      • Alert: {p.low_stock_threshold}
                     </span>
                   }
                   badge={
@@ -437,7 +471,9 @@ export default function AnalyticsView() {
         <div className="flex items-center justify-between pb-2 border-b border-agora-border">
           <div className="flex items-center gap-2">
             <History className="w-5 h-5 text-agora-ink-muted" />
-            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">Register Closures Log</h3>
+            <h3 className="font-serif font-bold text-agora-ink text-sm sm:text-base">
+              Register Closures Log
+            </h3>
           </div>
           <span className="text-xs text-agora-ink-muted">End-of-day reconciliation</span>
         </div>
@@ -467,8 +503,8 @@ export default function AnalyticsView() {
                         variance === 0
                           ? 'bg-agora-sage-light text-agora-sage border border-agora-sage-border'
                           : variance > 0
-                          ? 'bg-agora-brass/10 text-agora-brass border border-agora-brass/30'
-                          : 'bg-agora-brick-light text-agora-brick border border-agora-brick-border'
+                            ? 'bg-agora-brass/10 text-agora-brass border border-agora-brass/30'
+                            : 'bg-agora-brick-light text-agora-brick border border-agora-brick-border'
                       }`}
                     >
                       {variance === 0 ? (
@@ -479,8 +515,8 @@ export default function AnalyticsView() {
                       {variance === 0
                         ? 'Balanced'
                         : variance > 0
-                        ? `+${formatCurrency(variance, settings.currency_symbol)}`
-                        : formatCurrency(variance, settings.currency_symbol)}
+                          ? `+${formatCurrency(variance, settings.currency_symbol)}`
+                          : formatCurrency(variance, settings.currency_symbol)}
                     </span>
                   }
                 />

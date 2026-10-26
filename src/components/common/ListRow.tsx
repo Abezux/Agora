@@ -67,7 +67,8 @@ export default function ListRow({
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStartX.current === null || touchStartY.current === null || swipeActions.length === 0) return;
+    if (touchStartX.current === null || touchStartY.current === null || swipeActions.length === 0)
+      return;
     const currentX = e.touches[0].clientX;
     const currentY = e.touches[0].clientY;
     const diffX = currentX - touchStartX.current;
@@ -185,13 +186,9 @@ export default function ListRow({
 
         {/* Middle Two-Line Block */}
         <div className="min-w-0 flex-1 space-y-0.5">
-          <div className="font-bold text-agora-ink text-sm leading-snug truncate">
-            {title}
-          </div>
+          <div className="font-bold text-agora-ink text-sm leading-snug truncate">{title}</div>
           {subtitle && (
-            <div className="text-xs text-agora-ink-muted font-medium truncate">
-              {subtitle}
-            </div>
+            <div className="text-xs text-agora-ink-muted font-medium truncate">{subtitle}</div>
           )}
         </div>
 

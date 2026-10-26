@@ -1,6 +1,14 @@
 import { Sale, SaleItem, Product, StockMovement, Refund } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { SALES_KEY, PRODUCTS_KEY, MOVEMENTS_KEY, REFUNDS_KEY, getLocal, setLocal, getActiveStoreId } from './common';
+import {
+  SALES_KEY,
+  PRODUCTS_KEY,
+  MOVEMENTS_KEY,
+  REFUNDS_KEY,
+  getLocal,
+  setLocal,
+  getActiveStoreId,
+} from './common';
 
 export async function getSales(): Promise<Sale[]> {
   if (isSupabaseConfigured()) {
@@ -118,9 +126,8 @@ export async function createSale(
   }
 
   const totalAmount = subtotalAmount - discountAmount;
-  const finalPayments = payments && payments.length > 0 
-    ? payments 
-    : [{ method: 'CASH', amount: totalAmount }];
+  const finalPayments =
+    payments && payments.length > 0 ? payments : [{ method: 'CASH', amount: totalAmount }];
 
   const paymentMethod = finalPayments.length > 1 ? 'SPLIT' : finalPayments[0].method;
 
@@ -135,7 +142,7 @@ export async function createSale(
     items_count: totalItemsCount,
     status: 'COMPLETED',
     payment_method: paymentMethod,
-    payments: finalPayments.map(p => ({ method: p.method, amount: p.amount })),
+    payments: finalPayments.map((p) => ({ method: p.method, amount: p.amount })),
     notes,
     items: saleItems,
   };
@@ -187,7 +194,9 @@ export async function processRefund(
 
     const availableToRefund = item.quantity - (item.refunded_quantity || 0);
     if (refItem.quantity > availableToRefund) {
-      throw new Error(`Refund quantity exceeds available unrefunded quantity for ${item.product_name}`);
+      throw new Error(
+        `Refund quantity exceeds available unrefunded quantity for ${item.product_name}`
+      );
     }
 
     item.refunded_quantity = (item.refunded_quantity || 0) + refItem.quantity;

@@ -265,7 +265,9 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
 
               {/* Paragraph Measure (60-75ch limit) */}
               <p className="text-sm sm:text-base text-agora-card/80 leading-[1.6] max-w-[65ch]">
-                Most small shop owners track sales on paper while inventory sits on shelves. When busy days hit, paper numbers drift out of sync with real stock. Agora connects your register taps directly to inventory counts, stock alerts, and daily net revenue.
+                Most small shop owners track sales on paper while inventory sits on shelves. When
+                busy days hit, paper numbers drift out of sync with real stock. Agora connects your
+                register taps directly to inventory counts, stock alerts, and daily net revenue.
               </p>
 
               {/* Value Proposition Bullets */}
@@ -280,7 +282,11 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                   <div className="w-5 h-5 rounded-full bg-agora-gold/20 text-agora-gold flex items-center justify-center border border-agora-gold/30 shrink-0">
                     <Check className="w-3 h-3" />
                   </div>
-                  <span>Dedicated gold warnings (<code className="text-agora-gold font-mono font-bold">#C99A2E</code>) before items sell out</span>
+                  <span>
+                    Dedicated gold warnings (
+                    <code className="text-agora-gold font-mono font-bold">#C99A2E</code>) before
+                    items sell out
+                  </span>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <div className="w-5 h-5 rounded-full bg-agora-sage/20 text-agora-sage flex items-center justify-center border border-agora-sage/30 shrink-0">
@@ -338,7 +344,8 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
               Why paper notebooks lead to inventory drift
             </h2>
             <p className="text-sm text-agora-ink-muted leading-[1.6] max-w-[65ch] mx-auto">
-              When sales are written by hand while stock sits on shelves, three common operational problems occur every week:
+              When sales are written by hand while stock sits on shelves, three common operational
+              problems occur every week:
             </p>
           </div>
 
@@ -349,7 +356,8 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
               </div>
               <h3 className="font-serif font-bold text-base text-agora-ink">Untracked Stockouts</h3>
               <p className="text-xs text-agora-ink-muted leading-[1.6]">
-                Items sell out during busy shifts, but because stock is checked manually at end-of-day, customers are turned away before anyone notices the empty shelf.
+                Items sell out during busy shifts, but because stock is checked manually at
+                end-of-day, customers are turned away before anyone notices the empty shelf.
               </p>
             </div>
 
@@ -357,9 +365,12 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
               <div className="w-9 h-9 bg-agora-brick-light text-agora-brick rounded-xl flex items-center justify-center border border-agora-brick-border font-bold">
                 2
               </div>
-              <h3 className="font-serif font-bold text-base text-agora-ink">Cash Drawer Discrepancies</h3>
+              <h3 className="font-serif font-bold text-base text-agora-ink">
+                Cash Drawer Discrepancies
+              </h3>
               <p className="text-xs text-agora-ink-muted leading-[1.6]">
-                Cash receipts and mobile transfer text messages get mixed together. Without itemized transaction records, shift reconciliation takes over an hour at closing.
+                Cash receipts and mobile transfer text messages get mixed together. Without itemized
+                transaction records, shift reconciliation takes over an hour at closing.
               </p>
             </div>
 
@@ -367,16 +378,22 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
               <div className="w-9 h-9 bg-agora-sage-light text-agora-sage rounded-xl flex items-center justify-center border border-agora-sage-border font-bold">
                 3
               </div>
-              <h3 className="font-serif font-bold text-base text-agora-ink">Zero Revenue Trend Insights</h3>
+              <h3 className="font-serif font-bold text-base text-agora-ink">
+                Zero Revenue Trend Insights
+              </h3>
               <p className="text-xs text-agora-ink-muted leading-[1.6]">
-                A notebook shows total cash collected, but hides which products generated the margin, which items expired, or whether weekly revenue is trending up or down.
+                A notebook shows total cash collected, but hides which products generated the
+                margin, which items expired, or whether weekly revenue is trending up or down.
               </p>
             </div>
           </div>
         </section>
 
         {/* 3. Four Feature Sections (Zigzag Desktop Layout -> Single Column Mobile) */}
-        <section id="features" className="py-12 bg-agora-card border-y border-agora-border space-y-16">
+        <section
+          id="features"
+          className="py-12 bg-agora-card border-y border-agora-border space-y-16"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-16">
             {/* Feature 1: Counter Register (Image Left, Text Right on Desktop) */}
             <div
@@ -405,7 +422,9 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                 </h2>
 
                 <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6] max-w-[60ch]">
-                  Pin your highest-velocity items to the top of your register screen with a single star toggle. Search products by title or category. Record payments in Cash, Mobile Money (Telebirr/CBE Birr), Card, or Split tender.
+                  Pin your highest-velocity items to the top of your register screen with a single
+                  star toggle. Search products by title or category. Record payments in Cash, Mobile
+                  Money (Telebirr/CBE Birr), Card, or Split tender.
                 </p>
 
                 <ul className="space-y-2 text-xs font-semibold text-agora-ink pt-1">
@@ -443,7 +462,10 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                 </h2>
 
                 <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6] max-w-[60ch]">
-                  Agora reserves warm gold (<code className="text-agora-gold font-mono font-bold">#C99A2E</code>) strictly for items reaching minimum thresholds or warning dates — keeping your eyes focused on stock health before depletion occurs.
+                  Agora reserves warm gold (
+                  <code className="text-agora-gold font-mono font-bold">#C99A2E</code>) strictly for
+                  items reaching minimum thresholds or warning dates — keeping your eyes focused on
+                  stock health before depletion occurs.
                 </p>
 
                 <ul className="space-y-2 text-xs font-semibold text-agora-ink pt-1">
@@ -498,7 +520,8 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                 </h2>
 
                 <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6] max-w-[60ch]">
-                  Review completed checkouts chronologically. Void mistaken taps or process customer returns with automatic inventory quantity restoration and audit logs.
+                  Review completed checkouts chronologically. Void mistaken taps or process customer
+                  returns with automatic inventory quantity restoration and audit logs.
                 </p>
 
                 <ul className="space-y-2 text-xs font-semibold text-agora-ink pt-1">
@@ -535,7 +558,10 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                 </h2>
 
                 <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6] max-w-[60ch]">
-                  Inspect daily net revenue metrics. The revenue line dynamically shifts to Sage Green (<code className="text-agora-sage font-mono font-bold">#3B7A57</code>) for net increases and Brick Red (<code className="text-agora-brick font-mono font-bold">#C85A32</code>) for dips.
+                  Inspect daily net revenue metrics. The revenue line dynamically shifts to Sage
+                  Green (<code className="text-agora-sage font-mono font-bold">#3B7A57</code>) for
+                  net increases and Brick Red (
+                  <code className="text-agora-brick font-mono font-bold">#C85A32</code>) for dips.
                 </p>
 
                 <ul className="space-y-2 text-xs font-semibold text-agora-ink pt-1">
@@ -583,7 +609,9 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
                 Built for retail shop owners in open beta
               </h2>
               <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6]">
-                Agora is currently in early access open beta. You can set up your store register, add products, track sales offline, and export CSV logs today for free — with no credit card required.
+                Agora is currently in early access open beta. You can set up your store register,
+                add products, track sales offline, and export CSV logs today for free — with no
+                credit card required.
               </p>
             </div>
 
@@ -605,7 +633,9 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
             <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-serif font-bold text-agora-ink">
               Frequently Asked Questions
             </h2>
-            <p className="text-xs text-agora-ink-muted">Plain answers about how Agora operates in your store counter.</p>
+            <p className="text-xs text-agora-ink-muted">
+              Plain answers about how Agora operates in your store counter.
+            </p>
           </div>
 
           <div className="space-y-3">
@@ -646,7 +676,8 @@ export default function LandingView({ onOpenAuth }: LandingViewProps) {
               Ready to replace your paper sales notebook?
             </h2>
             <p className="text-xs sm:text-sm text-agora-ink-muted leading-[1.6]">
-              Set up your store register, customize your product catalog, and keep sales and stock aligned from day one.
+              Set up your store register, customize your product catalog, and keep sales and stock
+              aligned from day one.
             </p>
             <div className="pt-2 flex items-center justify-center gap-3">
               <button

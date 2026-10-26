@@ -23,7 +23,9 @@ export default function ProductTile({
   const isOut = remainingStock <= 0;
   const isLowStock = !isOut && remainingStock <= product.low_stock_threshold;
   const unitLabel = product.unit_type && product.unit_type !== 'piece' ? product.unit_type : '';
-  const expDate = product.attributes?.expiry_date ? new Date(product.attributes.expiry_date as string) : null;
+  const expDate = product.attributes?.expiry_date
+    ? new Date(product.attributes.expiry_date as string)
+    : null;
 
   return (
     <div
@@ -40,14 +42,24 @@ export default function ProductTile({
         isOut
           ? 'bg-agora-bg/60 border-agora-border opacity-50 cursor-not-allowed'
           : isLowStock
-          ? 'bg-agora-card border-agora-gold/40 hover:border-agora-gold shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer'
-          : 'bg-agora-card border-agora-border hover:border-agora-brass hover:shadow-md active:scale-[0.98] cursor-pointer'
+            ? 'bg-agora-card border-agora-gold/40 hover:border-agora-gold shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer'
+            : 'bg-agora-card border-agora-border hover:border-agora-brass hover:shadow-md active:scale-[0.98] cursor-pointer'
       }`}
     >
       {/* Top row: Avatar & Actions (Favorite Star & Cart Badge) */}
       <div className="flex items-start justify-between gap-1.5 mb-1.5 sm:mb-2.5 w-full">
-        <ProductAvatar name={product.name} imageUrl={product.image_url} size="sm" className="sm:hidden" />
-        <ProductAvatar name={product.name} imageUrl={product.image_url} size="md" className="hidden sm:flex" />
+        <ProductAvatar
+          name={product.name}
+          imageUrl={product.image_url}
+          size="sm"
+          className="sm:hidden"
+        />
+        <ProductAvatar
+          name={product.name}
+          imageUrl={product.image_url}
+          size="md"
+          className="hidden sm:flex"
+        />
 
         <div className="flex items-center gap-1">
           {onToggleFavorite && (
@@ -86,7 +98,8 @@ export default function ProductTile({
           </span>
           {expDate && (
             <span className="text-[9px] text-agora-gold font-bold flex items-center gap-0.5">
-              <Calendar className="w-2.5 h-2.5" /> Exp: {expDate.toLocaleDateString(undefined, { month: 'short' })}
+              <Calendar className="w-2.5 h-2.5" /> Exp:{' '}
+              {expDate.toLocaleDateString(undefined, { month: 'short' })}
             </span>
           )}
         </div>
@@ -99,7 +112,12 @@ export default function ProductTile({
       {/* Bottom: Price & Stock Badge */}
       <div className="pt-1.5 sm:pt-2.5 border-t border-agora-border/70 flex items-center justify-between w-full gap-1">
         <span className="font-serif font-bold text-agora-terracotta text-xs sm:text-base truncate">
-          {formatCurrency(product.price, currencySymbol)} {unitLabel && <span className="text-[10px] sm:text-xs font-sans font-normal text-agora-ink-muted">/{unitLabel}</span>}
+          {formatCurrency(product.price, currencySymbol)}{' '}
+          {unitLabel && (
+            <span className="text-[10px] sm:text-xs font-sans font-normal text-agora-ink-muted">
+              /{unitLabel}
+            </span>
+          )}
         </span>
 
         <div className="flex items-center gap-1 shrink-0">
@@ -109,7 +127,8 @@ export default function ProductTile({
             </span>
           ) : isLowStock ? (
             <span className="flex items-center gap-0.5 text-[10px] sm:text-[11px] font-bold text-agora-gold bg-agora-gold-light px-1.5 sm:px-2 py-0.5 rounded-md border border-agora-gold-border">
-              <AlertTriangle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-agora-gold" /> {remainingStock} left
+              <AlertTriangle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-agora-gold" />{' '}
+              {remainingStock} left
             </span>
           ) : (
             <span className="text-[10px] sm:text-[11px] font-semibold text-agora-ink-muted">

@@ -7,15 +7,15 @@ import { formatDate } from '@/utils/formatters';
 import ListRow from '@/components/common/ListRow';
 import FilterSheet from '@/components/common/FilterSheet';
 import ListSkeleton from '@/components/common/ListSkeleton';
-import { 
-  FileText, 
-  Search, 
-  PlusCircle, 
-  ShoppingCart, 
-  RotateCcw, 
-  Edit3, 
-  ArrowUpRight, 
-  ArrowDownRight 
+import {
+  FileText,
+  Search,
+  PlusCircle,
+  ShoppingCart,
+  RotateCcw,
+  Edit3,
+  ArrowUpRight,
+  ArrowDownRight,
 } from 'lucide-react';
 
 const BATCH_SIZE = 25;
@@ -29,7 +29,12 @@ function getDateGroupLabel(dateStr: string): string {
 
   if (target.getTime() === today.getTime()) return 'Today';
   if (target.getTime() === yesterday.getTime()) return 'Yesterday';
-  return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString(undefined, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }
 
 export default function AuditView() {
@@ -238,7 +243,11 @@ export default function AuditView() {
                     title={m.product_name}
                     subtitle={
                       <span className="text-agora-ink-muted">
-                        {new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • {m.note || 'No note'}
+                        {new Date(m.timestamp).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}{' '}
+                        • {m.note || 'No note'}
                       </span>
                     }
                     value={

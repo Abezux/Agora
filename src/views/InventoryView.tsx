@@ -11,19 +11,19 @@ import ListRow, { SwipeAction } from '@/components/common/ListRow';
 import FilterSheet from '@/components/common/FilterSheet';
 import ListSkeleton from '@/components/common/ListSkeleton';
 import ProductAvatar from '@/components/common/ProductAvatar';
-import { 
-  Package, 
-  Plus, 
-  Search, 
-  AlertTriangle, 
-  PlusCircle, 
-  Edit3, 
-  Trash2, 
-  TrendingUp, 
+import {
+  Package,
+  Plus,
+  Search,
+  AlertTriangle,
+  PlusCircle,
+  Edit3,
+  Trash2,
+  TrendingUp,
   Layers,
   ShieldAlert,
   Calendar,
-  Star
+  Star,
 } from 'lucide-react';
 
 export default function InventoryView() {
@@ -58,7 +58,11 @@ export default function InventoryView() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [prods, stgs, salesData] = await Promise.all([api.getProducts(), api.getSettings(), api.getSales()]);
+      const [prods, stgs, salesData] = await Promise.all([
+        api.getProducts(),
+        api.getSettings(),
+        api.getSales(),
+      ]);
       setProducts(prods);
       setSettings(stgs);
       setSales(salesData);
@@ -106,12 +110,14 @@ export default function InventoryView() {
         selectedCategory === 'ALL'
           ? true
           : selectedCategory === 'FAVORITES'
-          ? p.is_favorite === true
-          : p.category === selectedCategory;
+            ? p.is_favorite === true
+            : p.category === selectedCategory;
       const matchesSearch =
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (p.attributes?.batch_no ? String(p.attributes.batch_no).toLowerCase().includes(searchQuery.toLowerCase()) : false);
+        (p.attributes?.batch_no
+          ? String(p.attributes.batch_no).toLowerCase().includes(searchQuery.toLowerCase())
+          : false);
 
       const matchesLowStock = !filterLowStockOnly || p.stock_quantity <= p.low_stock_threshold;
 
@@ -126,7 +132,14 @@ export default function InventoryView() {
 
       return matchesCat && matchesSearch && matchesLowStock && matchesExpiring;
     });
-  }, [products, selectedCategory, searchQuery, filterLowStockOnly, filterExpiringOnly, expiryCutoff]);
+  }, [
+    products,
+    selectedCategory,
+    searchQuery,
+    filterLowStockOnly,
+    filterExpiringOnly,
+    expiryCutoff,
+  ]);
 
   // Group products by Category with sticky headers
   const groupedProducts = useMemo(() => {
@@ -154,7 +167,8 @@ export default function InventoryView() {
   }, [products]);
 
   const lowStockCount = useMemo(() => {
-    return products.filter((p) => p.stock_quantity > 0 && p.stock_quantity <= p.low_stock_threshold).length;
+    return products.filter((p) => p.stock_quantity > 0 && p.stock_quantity <= p.low_stock_threshold)
+      .length;
   }, [products]);
 
   const expiringCount = useMemo(() => {
@@ -165,7 +179,10 @@ export default function InventoryView() {
     }).length;
   }, [products, expiryCutoff]);
 
-  const activeFilterCount = (selectedCategory !== 'ALL' ? 1 : 0) + (filterLowStockOnly ? 1 : 0) + (filterExpiringOnly ? 1 : 0);
+  const activeFilterCount =
+    (selectedCategory !== 'ALL' ? 1 : 0) +
+    (filterLowStockOnly ? 1 : 0) +
+    (filterExpiringOnly ? 1 : 0);
 
   const handleOpenAdd = () => {
     setProductToEdit(null);
@@ -182,7 +199,9 @@ export default function InventoryView() {
     setIsRestockOpen(true);
   };
 
-  const handleSaveProduct = async (productData: Partial<Product> & { name: string; price: number; stock_quantity: number }) => {
+  const handleSaveProduct = async (
+    productData: Partial<Product> & { name: string; price: number; stock_quantity: number }
+  ) => {
     await api.saveProduct(productData);
     await loadData();
   };
@@ -234,7 +253,9 @@ export default function InventoryView() {
             <span>Total Products</span>
             <Layers className="w-4 h-4 text-agora-ink-muted" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-black text-agora-ink mt-1.5">{products.length}</div>
+          <div className="text-xl sm:text-2xl font-serif font-black text-agora-ink mt-1.5">
+            {products.length}
+          </div>
           <span className="text-[10px] text-agora-ink-muted font-medium">Active catalog items</span>
         </div>
 
@@ -243,7 +264,9 @@ export default function InventoryView() {
             <span>Low Stock</span>
             <AlertTriangle className="w-4 h-4 text-agora-gold" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-black text-agora-gold mt-1.5">{lowStockCount}</div>
+          <div className="text-xl sm:text-2xl font-serif font-black text-agora-gold mt-1.5">
+            {lowStockCount}
+          </div>
           <span className="text-[10px] text-agora-gold font-semibold">Needs restock</span>
         </div>
 
@@ -252,8 +275,12 @@ export default function InventoryView() {
             <span>Expiring Soon</span>
             <ShieldAlert className="w-4 h-4 text-agora-brick" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-black text-agora-brick mt-1.5">{expiringCount}</div>
-          <span className="text-[10px] text-agora-brick font-semibold">In {settings.expiry_alert_days || 30} days</span>
+          <div className="text-xl sm:text-2xl font-serif font-black text-agora-brick mt-1.5">
+            {expiringCount}
+          </div>
+          <span className="text-[10px] text-agora-brick font-semibold">
+            In {settings.expiry_alert_days || 30} days
+          </span>
         </div>
 
         <div className="ledger-card p-3 sm:p-4">
@@ -375,14 +402,18 @@ export default function InventoryView() {
               {/* Sticky Category Group Header */}
               <div className="sticky top-[56px] sm:top-[65px] z-10 bg-agora-bg/95 backdrop-blur-sm py-1.5 px-2 text-[11px] font-bold uppercase tracking-wider text-agora-brass border-b border-agora-border/60 flex items-center justify-between">
                 <span>{group.category}</span>
-                <span className="text-[10px] text-agora-ink-muted">({group.items.length} items)</span>
+                <span className="text-[10px] text-agora-ink-muted">
+                  ({group.items.length} items)
+                </span>
               </div>
 
               {/* Product Rows */}
               {group.items.map((p) => {
                 const isOut = p.stock_quantity <= 0;
                 const isLow = !isOut && p.stock_quantity <= p.low_stock_threshold;
-                const expDate = p.attributes?.expiry_date ? new Date(p.attributes.expiry_date as string) : null;
+                const expDate = p.attributes?.expiry_date
+                  ? new Date(p.attributes.expiry_date as string)
+                  : null;
                 const isExpiring = expDate ? expDate.getTime() <= expiryCutoff : false;
                 const suggestedQty = restockSuggestions[p.id];
 
@@ -437,9 +468,16 @@ export default function InventoryView() {
                     }
                     subtitle={
                       <div className="flex items-center gap-2 text-[11px]">
-                        <span>Cost: {p.cost_price ? formatCurrency(p.cost_price, settings.currency_symbol) : '-'}</span>
+                        <span>
+                          Cost:{' '}
+                          {p.cost_price
+                            ? formatCurrency(p.cost_price, settings.currency_symbol)
+                            : '-'}
+                        </span>
                         {p.unit_type && <span>• {p.unit_type}</span>}
-                        {p.attributes?.batch_no && <span>• Batch {String(p.attributes.batch_no)}</span>}
+                        {p.attributes?.batch_no && (
+                          <span>• Batch {String(p.attributes.batch_no)}</span>
+                        )}
                       </div>
                     }
                     value={formatCurrency(p.price, settings.currency_symbol)}
@@ -459,7 +497,10 @@ export default function InventoryView() {
                           </span>
                         ) : (
                           <span className="text-xs font-semibold text-agora-ink">
-                            Stock: <strong className="font-serif font-bold text-agora-ink">{p.stock_quantity}</strong>
+                            Stock:{' '}
+                            <strong className="font-serif font-bold text-agora-ink">
+                              {p.stock_quantity}
+                            </strong>
                           </span>
                         )}
 

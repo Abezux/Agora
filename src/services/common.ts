@@ -33,7 +33,9 @@ export function setLocal<T>(key: string, val: T): void {
 // Helper to get active store ID
 export const getActiveStoreId = async (): Promise<string | null> => {
   if (!isSupabaseConfigured()) return null;
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return null;
 
   const { data } = await supabase

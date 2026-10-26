@@ -179,7 +179,10 @@ export async function saveProduct(
   return newProduct;
 }
 
-export async function toggleFavoriteProduct(id: string, isFavorite: boolean): Promise<Product | null> {
+export async function toggleFavoriteProduct(
+  id: string,
+  isFavorite: boolean
+): Promise<Product | null> {
   if (isSupabaseConfigured()) {
     const storeId = await getActiveStoreId();
     if (storeId) {
@@ -201,7 +204,11 @@ export async function toggleFavoriteProduct(id: string, isFavorite: boolean): Pr
   const products = getLocal<Product[]>(PRODUCTS_KEY, []);
   const idx = products.findIndex((p) => p.id === id);
   if (idx !== -1) {
-    products[idx] = { ...products[idx], is_favorite: isFavorite, updated_at: new Date().toISOString() };
+    products[idx] = {
+      ...products[idx],
+      is_favorite: isFavorite,
+      updated_at: new Date().toISOString(),
+    };
     setLocal(PRODUCTS_KEY, products);
     return products[idx];
   }
@@ -212,7 +219,11 @@ export async function deleteProduct(id: string): Promise<boolean> {
   if (isSupabaseConfigured()) {
     const storeId = await getActiveStoreId();
     if (storeId) {
-      const { error } = await supabase.from('products').delete().eq('id', id).eq('store_id', storeId);
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', id)
+        .eq('store_id', storeId);
       if (error) {
         throw new Error(`Failed to delete product: ${error.message}`);
       }
@@ -226,7 +237,11 @@ export async function deleteProduct(id: string): Promise<boolean> {
   return true;
 }
 
-export async function restockProduct(id: string, addQuantity: number, note?: string): Promise<Product> {
+export async function restockProduct(
+  id: string,
+  addQuantity: number,
+  note?: string
+): Promise<Product> {
   if (isSupabaseConfigured()) {
     const storeId = await getActiveStoreId();
     if (storeId) {

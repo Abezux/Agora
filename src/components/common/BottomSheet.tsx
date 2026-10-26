@@ -75,9 +75,7 @@ export default function BottomSheet({
         )}
 
         {/* Content Body */}
-        <div className="overflow-y-auto flex-1 p-4 sm:p-6 text-agora-ink space-y-4">
-          {children}
-        </div>
+        <div className="overflow-y-auto flex-1 p-4 sm:p-6 text-agora-ink space-y-4">{children}</div>
       </div>
     </div>
   );

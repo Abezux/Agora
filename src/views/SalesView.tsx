@@ -11,18 +11,18 @@ import VoidSaleModal from '@/components/sales/VoidSaleModal';
 import ListRow, { SwipeAction } from '@/components/common/ListRow';
 import FilterSheet from '@/components/common/FilterSheet';
 import ListSkeleton from '@/components/common/ListSkeleton';
-import { 
-  History, 
-  Receipt, 
-  CheckCircle, 
-  Ban, 
-  Search, 
-  DollarSign, 
-  CreditCard, 
-  Smartphone, 
-  Layers, 
-  RotateCcw, 
-  RefreshCw 
+import {
+  History,
+  Receipt,
+  CheckCircle,
+  Ban,
+  Search,
+  DollarSign,
+  CreditCard,
+  Smartphone,
+  Layers,
+  RotateCcw,
+  RefreshCw,
 } from 'lucide-react';
 
 const BATCH_SIZE = 25;
@@ -49,7 +49,12 @@ function getDateGroupLabel(dateStr: string): string {
 
   if (target.getTime() === today.getTime()) return 'Today';
   if (target.getTime() === yesterday.getTime()) return 'Yesterday';
-  return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString(undefined, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }
 
 export default function SalesView() {
@@ -63,8 +68,12 @@ export default function SalesView() {
     expiry_alert_days: 30,
     custom_attributes: [],
   });
-  const [dateFilter, setDateFilter] = useState<'TODAY' | 'YESTERDAY' | 'THIS_WEEK' | 'ALL'>('TODAY');
-  const [statusFilter, setStatusFilter] = useState<'ALL' | 'COMPLETED' | 'PARTIALLY_REFUNDED' | 'REFUNDED' | 'VOIDED'>('ALL');
+  const [dateFilter, setDateFilter] = useState<'TODAY' | 'YESTERDAY' | 'THIS_WEEK' | 'ALL'>(
+    'TODAY'
+  );
+  const [statusFilter, setStatusFilter] = useState<
+    'ALL' | 'COMPLETED' | 'PARTIALLY_REFUNDED' | 'REFUNDED' | 'VOIDED'
+  >('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [displayCount, setDisplayCount] = useState<number>(BATCH_SIZE);
 
@@ -173,7 +182,9 @@ export default function SalesView() {
   }, [filteredSales]);
 
   const completedSalesCount = useMemo(() => {
-    return filteredSales.filter((s) => s.status === 'COMPLETED' || s.status === 'PARTIALLY_REFUNDED').length;
+    return filteredSales.filter(
+      (s) => s.status === 'COMPLETED' || s.status === 'PARTIALLY_REFUNDED'
+    ).length;
   }, [filteredSales]);
 
   const voidedSalesCount = useMemo(() => {
@@ -238,7 +249,9 @@ export default function SalesView() {
             <span>Active Sales</span>
             <CheckCircle className="w-4 h-4 text-agora-sage" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-black text-agora-ink mt-1.5">{completedSalesCount}</div>
+          <div className="text-xl sm:text-2xl font-serif font-black text-agora-ink mt-1.5">
+            {completedSalesCount}
+          </div>
           <span className="text-[10px] text-agora-ink-muted font-medium">Completed & Partial</span>
         </div>
 
@@ -247,7 +260,9 @@ export default function SalesView() {
             <span>Voided Sales</span>
             <Ban className="w-4 h-4 text-agora-brick" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-black text-agora-brick mt-1.5">{voidedSalesCount}</div>
+          <div className="text-xl sm:text-2xl font-serif font-black text-agora-brick mt-1.5">
+            {voidedSalesCount}
+          </div>
           <span className="text-[10px] text-agora-brick font-semibold">Stock restored</span>
         </div>
       </div>
@@ -279,16 +294,18 @@ export default function SalesView() {
               Date Period
             </label>
             <div className="grid grid-cols-2 gap-2">
-              {[
-                { id: 'TODAY', label: 'Today' },
-                { id: 'YESTERDAY', label: 'Yesterday' },
-                { id: 'THIS_WEEK', label: 'This Week' },
-                { id: 'ALL', label: 'All Time' },
-              ].map((f) => (
+              {(
+                [
+                  { id: 'TODAY', label: 'Today' },
+                  { id: 'YESTERDAY', label: 'Yesterday' },
+                  { id: 'THIS_WEEK', label: 'This Week' },
+                  { id: 'ALL', label: 'All Time' },
+                ] as const
+              ).map((f) => (
                 <button
                   key={f.id}
                   type="button"
-                  onClick={() => setDateFilter(f.id as any)}
+                  onClick={() => setDateFilter(f.id)}
                   className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all ${
                     dateFilter === f.id
                       ? 'bg-agora-terracotta/15 border-agora-terracotta text-agora-terracotta shadow-sm'
@@ -307,17 +324,19 @@ export default function SalesView() {
               Transaction Status
             </label>
             <div className="grid grid-cols-2 gap-2">
-              {[
-                { id: 'ALL', label: 'All Statuses' },
-                { id: 'COMPLETED', label: 'Completed' },
-                { id: 'PARTIALLY_REFUNDED', label: 'Partial Refund' },
-                { id: 'REFUNDED', label: 'Fully Refunded' },
-                { id: 'VOIDED', label: 'Voided' },
-              ].map((sf) => (
+              {(
+                [
+                  { id: 'ALL', label: 'All Statuses' },
+                  { id: 'COMPLETED', label: 'Completed' },
+                  { id: 'PARTIALLY_REFUNDED', label: 'Partial Refund' },
+                  { id: 'REFUNDED', label: 'Fully Refunded' },
+                  { id: 'VOIDED', label: 'Voided' },
+                ] as const
+              ).map((sf) => (
                 <button
                   key={sf.id}
                   type="button"
-                  onClick={() => setStatusFilter(sf.id as any)}
+                  onClick={() => setStatusFilter(sf.id)}
                   className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all ${
                     statusFilter === sf.id
                       ? 'bg-agora-brass/15 border-agora-brass text-agora-brass shadow-sm'
@@ -395,7 +414,11 @@ export default function SalesView() {
                     }
                     subtitle={
                       <span className="text-agora-ink-muted">
-                        {new Date(sale.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • {sale.payment_method || 'CASH'}
+                        {new Date(sale.timestamp).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}{' '}
+                        • {sale.payment_method || 'CASH'}
                       </span>
                     }
                     value={formatCurrency(sale.total_amount, settings.currency_symbol)}

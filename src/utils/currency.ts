@@ -17,33 +17,47 @@ export const CURRENCY_PRESETS = [
 export function formatCurrency(
   amountInCents: number,
   symbol: string = '$',
-  showDecimals: boolean = true
+  showDecimals: boolean = true,
+  locale?: string
 ): string {
-  if (isNaN(amountInCents) || amountInCents === null || amountInCents === undefined) {
+  if (typeof amountInCents !== 'number' || !Number.isFinite(amountInCents)) {
     return `${symbol}0.00`;
   }
 
-  const dollars = amountInCents / 100;
-  
-  // Format with thousands separator
-  const formatted = dollars.toLocaleString(undefined, {
-    minimumFractionDigits: showDecimals ? 2 : 0,
-    maximumFractionDigits: showDecimals ? 2 : 0,
+  const isNegative = amountInCents < 0;
+  const digits = showDecimals ? 2 : 0;
+
+  // Format the absolute value with thousands separator, then place the sign
+  // before the symbol (e.g. "-$1.50" rather than "$-1.50").
+  const formatted = Math.abs(amountInCents / 100).toLocaleString(locale, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
   });
 
-  return `${symbol}${formatted}`;
+  return `${isNegative ? '-' : ''}${symbol}${formatted}`;
 }
 
 export function parseInputToCents(val: string | number): number {
   if (typeof val === 'number') {
-    return Math.round(val * 100);
+    return Number.isFinite(val) ? Math.round(val * 100) : 0;
   }
-  const clean = val.replace(/[^0-9.]/g, '');
-  const parsed = parseFloat(clean);
-  if (isNaN(parsed)) return 0;
-  return Math.round(parsed * 100);
+
+  const trimmed = val.trim();
+  if (trimmed === '') return 0;
+
+  // Preserve a leading minus sign (also accepts the Unicode minus) instead of
+  // stripping it along with every other non-numeric character.
+  const isNegative = /^[-−]/.test(trimmed);
+  const clean = trimmed.replace(/[^0-9.]/g, '');
+  const parsed = Number.parseFloat(clean);
+  if (!Number.isFinite(parsed)) return 0;
+
+  return Math.round((isNegative ? -parsed : parsed) * 100);
 }
 
 export function centsToDecimalString(amountInCents: number): string {
+  if (typeof amountInCents !== 'number' || !Number.isFinite(amountInCents)) {
+    return '0.00';
+  }
   return (amountInCents / 100).toFixed(2);
 }

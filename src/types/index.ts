@@ -1,19 +1,14 @@
-export type ProductCategory = 
-  | 'Beverages' 
-  | 'Snacks' 
-  | 'Groceries' 
-  | 'Toiletries' 
-  | 'Pharmacy' 
-  | 'Stationery' 
+export type ProductCategory =
+  | 'Beverages'
+  | 'Snacks'
+  | 'Groceries'
+  | 'Toiletries'
+  | 'Pharmacy'
+  | 'Stationery'
   | 'General'
   | string;
 
-export type BusinessType = 
-  | 'MINI_SHOP' 
-  | 'PHARMACY' 
-  | 'RESTAURANT' 
-  | 'SALON' 
-  | 'GENERAL_RETAIL';
+export type BusinessType = 'MINI_SHOP' | 'PHARMACY' | 'RESTAURANT' | 'SALON' | 'GENERAL_RETAIL';
 
 export type UnitType = 'piece' | 'kg' | 'g' | 'L' | 'ml';
 
@@ -78,8 +73,8 @@ export interface RegisterClosure {
   period_start: string;
   period_end: string;
   expected_cash: number; // in cents
-  counted_cash: number;  // in cents
-  variance: number;      // in cents (counted - expected)
+  counted_cash: number; // in cents
+  variance: number; // in cents (counted - expected)
   notes?: string;
   closed_at: string;
 }

@@ -36,9 +36,18 @@ src/
   lib/seed.ts         Demo catalog products
   types/              index.ts (app types), supabase.ts (DB types)
   utils/              currency.ts, formatters.ts, revenue.ts
+  utils/__tests__/    Vitest unit tests for currency.ts and revenue.ts
 supabase/schema.sql   Tables, RLS policies, and RPC functions (run in Supabase SQL editor)
 public/               sw.js, manifest.json, icons
 ```
+
+## Tooling
+- `eslint.config.js` — flat config: `@eslint/js` + `typescript-eslint` recommended, React hooks and React Refresh rules. `no-undef` is off because TypeScript resolves identifiers.
+- `.prettierrc` / `.prettierignore` — 2 spaces, single quotes, semicolons, 100 char width. Markdown is ignored so docs keep their own formatting.
+- `vitest.config.ts` — node environment, reuses the `@/` alias. Tests live next to the code in `__tests__/` folders and import `describe` / `it` / `expect` explicitly (no globals).
+- Scripts: `lint`, `lint:fix`, `format`, `format:check`, `test`, `test:watch`. `build` still runs `tsc && vite build`.
+- Money helpers accept an optional `locale` argument (last parameter) so formatting is deterministic in tests without changing app behavior.
+- Current lint baseline: 0 errors, 45 warnings. The warnings are legacy: `react-hooks/set-state-in-effect` (views load data inside `useEffect`), `react-hooks/purity` (`Date.now()` during render), unused imports/variables, and a few `react-refresh` export notes. Both react-hooks compiler rules were set to `warn` so the tooling step did not require a view refactor. Treat the warning count as a ratchet: do not let it grow.
 
 ## How the app flows
 `App.tsx` decides what to render, in order:
@@ -70,10 +79,11 @@ Tokens live in `tailwind.config.ts` under `agora.*` (bg, card, border, ink, terr
 5. Hand-rolled hash navigation in `App.tsx`; a `landing` tab also exists inside the logged-in app. Production bundle is one 962 kB JS file (no code splitting).
 6. `LandingView.tsx` is 685 lines in one file; the large views (Sell, Inventory, Analytics, Sales) are 450–510 lines each and load their own data inline.
 7. (Resolved in A6) Purged `seedDemo()` out of `Navbar.tsx`; `Navbar.tsx` is now purely layout/navigation and user session controls.
-8. Repo hygiene: `tsconfig.tsbuildinfo` is committed though ignored; `.babelrc` references `next/babel` but this is a Vite project; no README, tests, linter, or formatter.
+8. (Resolved in P0-1) Repo hygiene: `tsconfig.tsbuildinfo` and `.babelrc` were removed in A1; README added in A1; tests, linter, and formatter added in P0-1.
 9. Naming: standardized product name to "Agora", package to "agora", and localStorage keys to "agora_*" (with legacy key fallback).
 10. `index.html`: `user-scalable=no` blocks pinch-zoom (accessibility); canonical/OG URLs and image are placeholders.
 11. Minor: `is_store_owner()` is `SECURITY DEFINER` without a fixed `search_path`.
+12. Legacy lint warnings (45) that are not worth a dedicated step yet: data loading inside `useEffect` in most views (causes an extra render), `Date.now()` during render in `InventoryView`, 25 unused imports/variables, and 2 `react-refresh` export notes. `npm run lint` passes with 0 errors. Fixing the effect pattern is a candidate for its own refactor step.
 
 ## Decisions log
 - 2026-10-06: A1 repo hygiene — untracked tsconfig.tsbuildinfo from git, removed unused .babelrc, and added project README.md.
@@ -83,3 +93,4 @@ Tokens live in `tailwind.config.ts` under `agora.*` (bg, card, border, ink, terr
 - 2026-10-07: A5 types & modals — replaced all 14 `any` types with strict interfaces/unions, and replaced all 18 `alert()` / `confirm()` calls with inline error banners and a reusable `ConfirmModal`.
 - 2026-10-07: A6 navbar refactor — removed `seedDemo()` and sample catalog buttons from `Navbar.tsx`; preserved `seedDemo` for onboarding and upcoming landing page demo flow.
 - 2026-10-26: Roadmap v1 rewrite — replaced old Phase A/B/C roadmap with a complete phased plan (P0–P4) covering ship pipeline, landing page + design tokens, offline-first data layer, onboarding/auth, insights, and launch gate. Added vision, owner decisions, sequencing rationale, old-to-new task mapping, risks, and post-v1 backlog. No code changes.
+- 2026-10-26: P0-1 tooling — added ESLint (flat config), Prettier, and Vitest; unit tests cover every export in `utils/currency.ts` and `utils/revenue.ts`. Fixed two money bugs found while writing the tests: `parseInputToCents` dropped a leading minus sign, and `formatCurrency` / `centsToDecimalString` leaked `NaN` / `Infinity`. `formatCurrency` now accepts an optional `locale` argument for deterministic tests. Repo was formatted once in a separate commit.

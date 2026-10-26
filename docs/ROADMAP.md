@@ -56,9 +56,9 @@ What v1 is **not**: dashboard visual redesign, barcode scanning, receipts, multi
 ## Current status (agents: keep this accurate after every step)
 
 - **Last updated**: 2026-10-26
-- **Done**: A1–A6 (see [Completed work](#completed-work-a1a6) below)
+- **Done**: A1–A6 (see [Completed work](#completed-work-a1a6) below); P0-1 (ESLint, Prettier, Vitest, money-math tests)
 - **In progress**: nothing
-- **Next**: P0-1 (ESLint, Prettier, Vitest with money-math tests)
+- **Next**: P0-2 (migrations baseline)
 - **Blockers / questions for the owner**: none currently
 
 ---
@@ -120,7 +120,7 @@ Nothing from the old roadmap is lost. This table shows where each old item went 
 
 ---
 
-- [ ] **P0-1** ESLint, Prettier, Vitest (S) | Depends on: nothing
+- [x] **P0-1** ESLint, Prettier, Vitest (S) | Depends on: nothing
   - **Why**: Money correctness before anything else. A linter catches bugs the compiler misses. A formatter ends style debates. Tests for `currency.ts` and `revenue.ts` are the minimum safety net for financial logic.
   - **How**: Add `eslint`, `prettier`, `vitest` as dev dependencies. Configure ESLint for React + TS strict. Add scripts to `package.json`. Write unit tests for `formatCurrency`, `parseInputToCents`, `centsToDecimalString`, `calculateSaleRefunds`, `getSaleNetRevenue`, `calculateNetRevenue`, `getSaleItemNetTotal`. Add edge cases: zero, negative, very large amounts, NaN input, non-2-decimal currencies (future-proofing).
   - **Done when**: `npm run lint`, `npm run format:check`, and `npm test` all pass; `npm run build` still passes; tests cover every exported function in `utils/currency.ts` and `utils/revenue.ts`.

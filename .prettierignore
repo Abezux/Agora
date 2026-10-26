@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+package-lock.json
+# Docs are prose, not code; leave existing formatting alone.
+*.md

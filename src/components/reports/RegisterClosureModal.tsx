@@ -101,10 +101,15 @@ export default function RegisterClosureModal({
         </div>
 
         {/* Content Form */}
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1">
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1"
+        >
           {/* Period Banner */}
           <div className="bg-agora-bg p-3.5 rounded-2xl border border-agora-border text-xs space-y-1">
-            <span className="text-agora-ink-muted font-bold uppercase tracking-wider block">Open Session Window</span>
+            <span className="text-agora-ink-muted font-bold uppercase tracking-wider block">
+              Open Session Window
+            </span>
             <div className="font-semibold text-agora-ink">
               Since {periodStart ? formatDate(periodStart) : 'Beginning of session'}
             </div>
@@ -114,7 +119,9 @@ export default function RegisterClosureModal({
           <div className="bg-agora-bg p-4 rounded-2xl border border-agora-border space-y-2 text-xs">
             <div className="flex justify-between items-center text-agora-ink-muted">
               <span>Cash Sales Collected:</span>
-              <span className="font-serif font-bold text-agora-ink">{formatCurrency(totalCashSales, currencySymbol)}</span>
+              <span className="font-serif font-bold text-agora-ink">
+                {formatCurrency(totalCashSales, currencySymbol)}
+              </span>
             </div>
             {totalCashRefunds > 0 && (
               <div className="flex justify-between items-center text-agora-brick font-semibold">
@@ -123,7 +130,9 @@ export default function RegisterClosureModal({
               </div>
             )}
             <div className="flex justify-between items-baseline pt-2 border-t border-agora-border">
-              <span className="font-extrabold uppercase tracking-wider text-agora-ink">Calculated Expected Cash</span>
+              <span className="font-extrabold uppercase tracking-wider text-agora-ink">
+                Calculated Expected Cash
+              </span>
               <span className="text-2xl font-serif font-black text-agora-terracotta">
                 {isLoading ? '...' : formatCurrency(expectedCash, currencySymbol)}
               </span>
@@ -161,13 +170,15 @@ export default function RegisterClosureModal({
           </div>
 
           {/* Live Variance Calculation Banner */}
-          <div className={`p-4 rounded-2xl border flex items-center justify-between text-xs font-bold ${
-            varianceInCents === 0
-              ? 'bg-agora-sage-light border-agora-sage-border text-agora-sage'
-              : varianceInCents > 0
-              ? 'bg-agora-brass/10 border-agora-brass/30 text-agora-brass'
-              : 'bg-agora-brick-light border-agora-brick-border text-agora-brick'
-          }`}>
+          <div
+            className={`p-4 rounded-2xl border flex items-center justify-between text-xs font-bold ${
+              varianceInCents === 0
+                ? 'bg-agora-sage-light border-agora-sage-border text-agora-sage'
+                : varianceInCents > 0
+                  ? 'bg-agora-brass/10 border-agora-brass/30 text-agora-brass'
+                  : 'bg-agora-brick-light border-agora-brick-border text-agora-brick'
+            }`}
+          >
             <div className="flex items-center gap-2">
               {varianceInCents === 0 ? (
                 <CheckCircle2 className="w-5 h-5 text-agora-sage shrink-0" />
@@ -175,13 +186,15 @@ export default function RegisterClosureModal({
                 <AlertCircle className="w-5 h-5 shrink-0" />
               )}
               <div>
-                <span className="uppercase tracking-wider block text-[11px]">Reconciliation Variance</span>
+                <span className="uppercase tracking-wider block text-[11px]">
+                  Reconciliation Variance
+                </span>
                 <span className="text-sm font-serif font-black">
                   {varianceInCents === 0
                     ? 'Balanced (No Variance)'
                     : varianceInCents > 0
-                    ? `+${formatCurrency(varianceInCents, currencySymbol)} (Overage)`
-                    : `${formatCurrency(varianceInCents, currencySymbol)} (Shortage)`}
+                      ? `+${formatCurrency(varianceInCents, currencySymbol)} (Overage)`
+                      : `${formatCurrency(varianceInCents, currencySymbol)} (Shortage)`}
                 </span>
               </div>
             </div>
